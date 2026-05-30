@@ -5,7 +5,7 @@ import { getSiteConfig } from '@/lib/services/siteConfig';
 import { cn } from '@/lib/utils/cn';
 
 interface SiteLogoProps {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxxl' | 'xxxxl';
   className?: string;
 }
 
@@ -14,6 +14,8 @@ const sizeMap = {
   md: 'w-10 h-10 text-lg',
   lg: 'w-12 h-12 text-xl',
   xl: 'w-16 h-16 text-2xl',
+  xxxl: 'w-20 h-20 text-3xl',
+  xxxxl: 'w-24 h-24 text-4xl',
 };
 
 let cachedLogo: string | null | undefined = undefined;

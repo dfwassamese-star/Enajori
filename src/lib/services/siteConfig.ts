@@ -16,9 +16,9 @@ export interface SiteConfig {
   siteLogo?: string; // URL to logo image
 
   // Branding sizes (navbar & footer)
-  brandLogoSize?: 'sm' | 'md' | 'lg' | 'xl';
-  brandNameSize?: 'sm' | 'md' | 'lg' | 'xl';
-  brandSubtitleSize?: 'sm' | 'md' | 'lg' | 'xl';
+  brandLogoSize?: 'sm' | 'md' | 'lg' | 'xl' | 'xxxl' | 'xxxxl';
+  brandNameSize?: 'sm' | 'md' | 'lg' | 'xl' | 'xxxl' | 'xxxxl';
+  brandSubtitleSize?: 'sm' | 'md' | 'lg' | 'xl' | 'xxxl' | 'xxxxl';
 
   // Banner settings
   bannerTransitionInterval?: number; // seconds between slides

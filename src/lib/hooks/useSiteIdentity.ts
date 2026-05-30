@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { getSiteConfig, DEFAULT_SITE_CONFIG } from '@/lib/services/siteConfig';
 
-type BrandSize = 'sm' | 'md' | 'lg' | 'xl';
+type BrandSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxxl' | 'xxxxl';
 
-const nameClassMap: Record<BrandSize, string> = { sm: 'text-base', md: 'text-lg', lg: 'text-xl', xl: 'text-2xl' };
-const subtitleClassMap: Record<BrandSize, string> = { sm: 'text-[10px]', md: 'text-xs', lg: 'text-sm', xl: 'text-base' };
+const nameClassMap: Record<BrandSize, string> = { sm: 'text-base', md: 'text-lg', lg: 'text-xl', xl: 'text-2xl', xxxl: 'text-3xl', xxxxl: 'text-4xl' };
+const subtitleClassMap: Record<BrandSize, string> = { sm: 'text-[10px]', md: 'text-xs', lg: 'text-sm', xl: 'text-base', xxxl: 'text-lg', xxxxl: 'text-xl' };
 
 interface SiteIdentity {
   siteName: string;
