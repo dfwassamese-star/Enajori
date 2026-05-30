@@ -45,7 +45,7 @@ export function Navbar() {
                 brandNameClass,
                 isScrolled ? 'text-earth-800' : 'text-earth-800'
               )}>
-                {siteName}
+                <span dangerouslySetInnerHTML={{ __html: siteName }} />
               </div>
               {siteSubtitle && <div className={cn(brandSubtitleClass, 'text-muga-600 font-medium tracking-wider uppercase')}>{siteSubtitle}</div>}
             </div>
