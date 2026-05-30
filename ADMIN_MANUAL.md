@@ -1,6 +1,82 @@
-# Assam in Dallas — Admin Instruction Manual
+# Enajori — Admin Instruction Manual
 
-A complete guide for administrators to install, configure, deploy, and maintain the **Assam in Dallas** community website.
+A complete guide for administrators to install, configure, deploy, and maintain the **Enajori (Assam in Dallas)** community website.
+
+---
+
+## Current Production Setup
+
+> **This section documents the live production environment as of May 2026.**
+
+### Accounts & Services
+
+| Service | Account Email | Project / ID | URL |
+|---|---|---|---|
+| **Website** | — | — | [https://enajoridallas.org](https://enajoridallas.org) |
+| **Domain** | `dfwassamese@gmail.com` | `enajoridallas.org` | Purchased via Vercel, auto-renews May 2027 |
+| **GitHub** | `dfwassamese@gmail.com` | `dfwassamese-star/Enajori` | [https://github.com/dfwassamese-star/Enajori](https://github.com/dfwassamese-star/Enajori) |
+| **Vercel** | `dfwassamese@gmail.com` | `enajori-s-projects/enajori` | [https://vercel.com/enajori-s-projects/enajori](https://vercel.com/enajori-s-projects/enajori) |
+| **Firebase** | `dfwassamese@gmail.com` | `enajori-d8793` | [https://console.firebase.google.com/project/enajori-d8793](https://console.firebase.google.com/project/enajori-d8793) |
+
+### Admin Portal
+
+| | |
+|---|---|
+| **URL** | [https://enajoridallas.org/admin](https://enajoridallas.org/admin) |
+| **Login Email** | `dfwassamese@gmail.com` |
+
+### Deployment Pipeline
+
+```
+GitHub (dfwassamese-star/Enajori)
+  └── Push to main ──→ Vercel auto-deploys to enajoridallas.org
+  └── Push to branch ──→ Vercel creates preview deployment
+```
+
+- The `main` branch is **protected** — all changes require a pull request with 1 approval
+- Force pushes and branch deletion are blocked
+
+### Firebase Resources
+
+| Resource | Console Location |
+|---|---|
+| **Auth (users)** | Firebase Console > Build > Authentication |
+| **Firestore (data)** | Firebase Console > Build > Firestore Database |
+| **Storage (images/videos)** | Firebase Console > Build > Storage |
+| **Firestore Indexes** | Firebase Console > Build > Firestore Database > Indexes |
+| **Security Rules** | Deployed via `firebase deploy --only firestore:rules,storage` |
+
+### Vercel Environment Variables (Production)
+
+All 11 variables are configured on Vercel for the production environment:
+
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | Firebase client SDK |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | Firebase Auth |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | Firebase project |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | Firebase Storage |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Firebase messaging |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | Firebase app |
+| `FIREBASE_ADMIN_PROJECT_ID` | Firebase Admin SDK (server-side) |
+| `FIREBASE_ADMIN_CLIENT_EMAIL` | Firebase Admin SDK (server-side) |
+| `FIREBASE_ADMIN_PRIVATE_KEY` | Firebase Admin SDK (server-side) |
+| `NEXT_PUBLIC_BASE_URL` | `https://enajoridallas.org` |
+| `REVALIDATION_SECRET` | ISR revalidation auth |
+
+### Independence
+
+The website does **not** depend on any local machine. Everything runs in the cloud:
+
+| Dependency | Location |
+|---|---|
+| Source code | GitHub |
+| Hosting & deploys | Vercel (auto-deploys from GitHub) |
+| Domain & DNS | Vercel |
+| Database | Firebase Firestore |
+| Authentication | Firebase Auth |
+| File storage | Firebase Storage |
+| Environment variables | Vercel dashboard |
 
 ---
 
@@ -967,4 +1043,4 @@ Enajori/
 
 ---
 
-*This manual was created for the Assam in Dallas community website. For questions or issues, contact the site administrator or refer to the links above.*
+*This manual was created for the Enajori (Assam in Dallas) community website. For questions or issues, contact the site administrator at dfwassamese@gmail.com or refer to the links above.*
