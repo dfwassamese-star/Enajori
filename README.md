@@ -2,7 +2,7 @@
 
 A community website for the Assamese diaspora in Dallas, USA. Built with Next.js 16, Firebase, and deployed on Vercel.
 
-**Live:** [https://enajori.vercel.app](https://enajori.vercel.app)
+**Live:** [https://enajoridallas.org](https://enajoridallas.org)
 
 ## Tech Stack
 

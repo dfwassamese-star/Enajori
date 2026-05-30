@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'Assam in Dallas, USA',
   shortName: 'AiD',
   description: 'Connecting cultures, celebrating heritage, and building community. Proudly promoting the rich traditions and vibrant spirit of Assam and North East India in Dallas, USA.',
-  url: 'https://assamindallas.org',
+  url: 'https://enajoridallas.org',
   ogImage: '/api/og',
   contactEmail: 'info@assameseassociationofdallas.org',
   keywords: [
