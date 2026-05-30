@@ -2,11 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Film } from 'lucide-react';
-
-function getYouTubeId(url: string): string | null {
-  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/);
-  return match ? match[1] : null;
-}
+import { getYouTubeId } from '@/lib/utils/video';
 
 function getVimeoId(url: string): string | null {
   const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);

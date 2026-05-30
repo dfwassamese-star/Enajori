@@ -7,6 +7,7 @@ import { YearFilter } from '@/components/events/YearFilter';
 import { Modal } from '@/components/ui/Modal';
 import { Spinner } from '@/components/ui/Spinner';
 import { getPublishedMedia } from '@/lib/services/media';
+import { toYouTubeEmbedUrl } from '@/lib/utils/video';
 import type { MediaItem, WithId } from '@/types';
 
 interface MappedVideo {
@@ -100,7 +101,7 @@ export default function VideosPage() {
           <div className="aspect-video rounded-lg overflow-hidden">
             {selectedVideo.videoUrl.includes('youtube.com') || selectedVideo.videoUrl.includes('youtu.be') ? (
               <iframe
-                src={selectedVideo.videoUrl.replace('watch?v=', 'embed/')}
+                src={toYouTubeEmbedUrl(selectedVideo.videoUrl)}
                 className="w-full h-full"
                 allowFullScreen
                 title={selectedVideo.title}
