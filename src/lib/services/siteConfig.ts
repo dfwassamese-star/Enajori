@@ -74,6 +74,9 @@ export interface SiteConfig {
   contactFormEnabled?: boolean;
   resendApiKey?: string;
 
+  // Footer
+  footerDescription?: string;
+
   // Social links
   facebookUrl?: string;
   instagramUrl?: string;
@@ -119,6 +122,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   aboutValue3Description: 'Nurturing young talent and cultural pride through performance opportunities, workshops, and mentorship programs.',
   aboutValue4Title: 'Cultural Exchange',
   aboutValue4Description: 'Sharing the beauty of Assamese culture with the broader American community and fostering cross-cultural understanding.',
+  footerDescription: 'Connecting cultures, celebrating heritage, and building community. Proudly promoting the rich traditions and vibrant spirit of Assam and North East India in Dallas, USA.',
   facebookUrl: 'https://facebook.com/assamesecommunityusa',
   instagramUrl: 'https://instagram.com/assamesecommunityusa',
   youtubeUrl: 'https://youtube.com/@assamesecommunityusa',

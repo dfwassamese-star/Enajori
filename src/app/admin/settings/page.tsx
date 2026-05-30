@@ -15,7 +15,7 @@ import { toast } from 'sonner';
 type SectionKey = 'identity' | 'social';
 
 const sectionFields: Record<SectionKey, (keyof SiteConfig)[]> = {
-  identity: ['siteName', 'siteSubtitle', 'siteTagline', 'contactEmail', 'contactPhone', 'siteLogo', 'brandLogoSize', 'brandNameSize', 'brandSubtitleSize'],
+  identity: ['siteName', 'siteSubtitle', 'siteTagline', 'contactEmail', 'contactPhone', 'siteLogo', 'brandLogoSize', 'brandNameSize', 'brandSubtitleSize', 'footerDescription'],
   social: ['facebookUrl', 'instagramUrl', 'youtubeUrl'],
 };
 
@@ -124,7 +124,7 @@ export default function AdminSettingsPage() {
               label="Site Subtitle"
               value={config.siteSubtitle || ''}
               onChange={(e) => handleChange('siteSubtitle', e.target.value)}
-              helperText="Shown below the site name in navbar and footer (e.g. USA)"
+              helperText="Shown below the site name in Navbar and Footer (e.g. USA)"
             />
             <Input
               label="Tagline"
@@ -136,6 +136,7 @@ export default function AdminSettingsPage() {
               type="email"
               value={config.contactEmail}
               onChange={(e) => handleChange('contactEmail', e.target.value)}
+              helperText="Shown in Footer &quot;Get in Touch&quot; and Contact page &quot;Contact Info&quot;"
             />
             <Input
               label="Contact Phone"
@@ -143,6 +144,14 @@ export default function AdminSettingsPage() {
               value={config.contactPhone || ''}
               onChange={(e) => handleChange('contactPhone', e.target.value)}
             />
+            <div className="sm:col-span-2">
+              <Input
+                label="Footer Description"
+                value={config.footerDescription || ''}
+                onChange={(e) => handleChange('footerDescription', e.target.value)}
+                helperText="Text shown below the logo and site name in the Footer"
+              />
+            </div>
             <div className="sm:col-span-2">
               <FileUploadField
                 label="Site Logo"
@@ -154,7 +163,7 @@ export default function AdminSettingsPage() {
               />
             </div>
             <Select
-              label="Logo Size"
+              label="Logo Size (Navbar & Footer)"
               value={config.brandLogoSize || 'md'}
               onChange={(e) => handleChange('brandLogoSize', e.target.value)}
               options={[
@@ -167,7 +176,7 @@ export default function AdminSettingsPage() {
               ]}
             />
             <Select
-              label="Name Size"
+              label="Site Name Size (Navbar & Footer)"
               value={config.brandNameSize || 'md'}
               onChange={(e) => handleChange('brandNameSize', e.target.value)}
               options={[
@@ -180,7 +189,7 @@ export default function AdminSettingsPage() {
               ]}
             />
             <Select
-              label="Subtitle Size"
+              label="Subtitle Size (Navbar & Footer)"
               value={config.brandSubtitleSize || 'md'}
               onChange={(e) => handleChange('brandSubtitleSize', e.target.value)}
               options={[

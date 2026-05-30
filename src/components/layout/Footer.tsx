@@ -27,7 +27,7 @@ const footerLinks = {
 };
 
 export function Footer() {
-  const { siteName, siteSubtitle, brandLogoSize, brandNameClass, brandSubtitleClass } = useSiteIdentity();
+  const { siteName, siteSubtitle, brandLogoSize, brandNameClass, brandSubtitleClass, contactEmail, footerDescription } = useSiteIdentity();
 
   return (
     <footer className="bg-earth-800 text-earth-200">
@@ -48,7 +48,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-earth-400 text-sm leading-relaxed mb-4">
-              {siteConfig.description}
+              {footerDescription}
             </p>
             <div className="flex items-center gap-3">
               <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-earth-700 hover:bg-gamosa-500 text-earth-300 hover:text-white transition-colors" aria-label="Facebook">
@@ -97,8 +97,8 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm text-earth-400">
                 <Mail className="h-4 w-4 mt-0.5 shrink-0 text-muga-400" />
-                <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-muga-400 transition-colors">
-                  {siteConfig.contactEmail}
+                <a href={`mailto:${contactEmail}`} className="hover:text-muga-400 transition-colors">
+                  {contactEmail}
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm text-earth-400">
