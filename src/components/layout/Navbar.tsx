@@ -8,12 +8,14 @@ import { Menu, X, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { mainNavLinks } from '@/lib/constants/navigation';
 import { SiteLogo } from '@/components/shared/SiteLogo';
+import { useSiteIdentity } from '@/lib/hooks/useSiteIdentity';
 import { Button } from '@/components/ui/Button';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { siteName, siteSubtitle } = useSiteIdentity();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -42,9 +44,9 @@ export function Navbar() {
                 'font-heading font-bold text-lg leading-tight transition-colors',
                 isScrolled ? 'text-earth-800' : 'text-earth-800'
               )}>
-                Assam in Dallas
+                {siteName}
               </div>
-              <div className="text-xs text-muga-600 font-medium tracking-wider uppercase">USA</div>
+              {siteSubtitle && <div className="text-xs text-muga-600 font-medium tracking-wider uppercase">{siteSubtitle}</div>}
             </div>
           </Link>
 
