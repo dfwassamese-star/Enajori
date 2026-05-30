@@ -7,6 +7,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { AnimatedSection } from '@/components/shared/AnimatedSection';
 import { Heart, Users, Award, Globe, Star, Lightbulb, Shield, Handshake } from 'lucide-react';
 import { getSiteConfig, DEFAULT_SITE_CONFIG, type SiteConfig } from '@/lib/services/siteConfig';
+import { stripHtml } from '@/lib/constants/seo';
 
 const iconPool = [Heart, Users, Award, Globe, Star, Lightbulb, Shield, Handshake];
 
@@ -104,7 +105,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-heading font-bold text-earth-800 mb-6">Our Mission</h2>
             <Card className="bg-earth-800 text-white border-earth-700">
               <p className="text-earth-200 leading-relaxed text-lg font-heading italic">
-                &ldquo;{config.aboutMission || DEFAULT_SITE_CONFIG.aboutMission}&rdquo;
+                &ldquo;{stripHtml(config.aboutMission || DEFAULT_SITE_CONFIG.aboutMission || '')}&rdquo;
               </p>
             </Card>
           </AnimatedSection>
