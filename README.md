@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Enajori — Assam in Dallas
+
+A community website for the Assamese diaspora in Dallas, USA. Built with Next.js 16, Firebase, and deployed on Vercel.
+
+**Live:** [https://enajori.vercel.app](https://enajori.vercel.app)
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js 16 (React 19) | App Router, SSR, API routes |
+| TypeScript | Type-safe codebase |
+| Tailwind CSS v4 | Styling with custom Assamese cultural themes |
+| Firebase Auth | Email/password authentication with admin claims |
+| Cloud Firestore | NoSQL database for all content |
+| Firebase Storage | Image and video uploads |
+| PayPal | Donation processing via redirect |
+| Resend | Transactional email for contact form |
+| Vercel | Hosting with auto-deploy from GitHub |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- Firebase project with Auth, Firestore, and Storage enabled
+- A `.env.local` file (see `.env.example`)
+
+### Setup
 
 ```bash
+git clone https://github.com/dfwassamese-star/Enajori.git
+cd Enajori
+npm install
+cp .env.example .env.local
+# Fill in .env.local with your Firebase credentials
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev       # Start dev server with hot reload
+npm run build     # Production build
+npm run lint      # Run ESLint
+npm run start     # Serve production build locally
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── (public)/          # Public pages (events, gallery, community, etc.)
+│   ├── admin/             # Admin dashboard (protected)
+│   └── api/               # API routes (contact, stripe, og, revalidate)
+├── components/
+│   ├── ui/                # Reusable UI components
+│   ├── admin/             # Admin-specific components
+│   ├── home/              # Homepage sections and animations
+│   ├── layout/            # Header, Footer, Sidebar
+│   └── shared/            # Cross-cutting components
+├── lib/
+│   ├── firebase/          # Firebase client, admin, and collection refs
+│   ├── services/          # Firestore CRUD per domain
+│   ├── utils/             # Helpers (cn, dates, slugify, firestore, validation)
+│   └── constants/         # SEO config, categories
+├── providers/             # Auth and Toast context providers
+└── types/                 # TypeScript type definitions
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The repository is connected to Vercel. Pushing to `main` triggers a production deployment automatically.
 
-## Deploy on Vercel
+### Branch Protection
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The `main` branch is protected:
+- All changes require a pull request
+- PRs require 1 approval before merging
+- Force pushes are blocked
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Workflow
+
+1. Create a feature branch: `git checkout -b feature/my-change`
+2. Make changes, commit, and push
+3. Open a pull request — Vercel creates a preview deployment
+4. Get approval, merge to `main` — Vercel deploys to production
+
+## Admin Portal
+
+Access at `/admin` with a Firebase Auth user that has the `admin: true` custom claim. Manage events, performances, members, gallery, news, banners, donations, and site settings.
+
+## Documentation
+
+See [ADMIN_MANUAL.md](ADMIN_MANUAL.md) for the full setup and administration guide.
+
+## Environment Variables
+
+See [.env.example](.env.example) for all required and optional variables. Key groups:
+
+- `NEXT_PUBLIC_FIREBASE_*` — Firebase client SDK config
+- `FIREBASE_ADMIN_*` — Firebase Admin SDK credentials (server-side only)
+- `NEXT_PUBLIC_BASE_URL` — Production URL
+- `REVALIDATION_SECRET` — ISR revalidation auth
+- `RESEND_API_KEY` — Contact form emails (optional)
+- `STRIPE_*` — Stripe integration (optional)
