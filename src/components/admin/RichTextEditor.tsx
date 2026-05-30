@@ -83,6 +83,20 @@ const FONTS = [
   { value: 'Pacifico', label: 'Pacifico' },
   { value: 'Caveat', label: 'Caveat' },
   { value: 'Satisfy', label: 'Satisfy' },
+  // ── Assamese / Bengali Script ──
+  { value: '', label: '── Assamese / Bengali ──', disabled: true },
+  { value: 'Noto Sans Assamese', label: 'Noto Sans Assamese' },
+  { value: 'Noto Serif Bengali', label: 'Noto Serif Bengali' },
+  { value: 'Noto Sans Bengali', label: 'Noto Sans Bengali' },
+  { value: 'Hind Siliguri', label: 'Hind Siliguri' },
+  { value: 'Baloo Da 2', label: 'Baloo Da 2' },
+  { value: 'Galada', label: 'Galada' },
+  { value: 'Anek Bangla', label: 'Anek Bangla' },
+  { value: 'Tiro Bangla', label: 'Tiro Bangla' },
+  { value: 'Atma', label: 'Atma' },
+  { value: 'Mina', label: 'Mina' },
+  { value: 'Mukta', label: 'Mukta' },
+  { value: 'Noto Serif Assamese', label: 'Noto Serif Assamese' },
 ];
 
 const FONT_SIZES = [
@@ -177,24 +191,33 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
           </button>
           {showFontPicker && (
             <div className="absolute top-full left-0 mt-1 z-30 bg-white border border-earth-200 rounded-lg shadow-lg py-1 min-w-[180px] max-h-[240px] overflow-y-auto">
-              {FONTS.map(font => (
-                <button
-                  key={font.value}
-                  type="button"
-                  onClick={() => {
-                    if (font.value) {
-                      editor.chain().focus().setFontFamily(font.value).run();
-                    } else {
-                      editor.chain().focus().unsetFontFamily().run();
-                    }
-                    setShowFontPicker(false);
-                  }}
-                  className="block w-full text-left px-3 py-1.5 text-sm hover:bg-earth-50 transition-colors"
-                  style={{ fontFamily: font.value || 'inherit' }}
-                >
-                  {font.label}
-                </button>
-              ))}
+              {FONTS.map((font, i) => {
+                if ('disabled' in font && font.disabled) {
+                  return (
+                    <div key={`sep-${i}`} className="px-3 py-1.5 text-xs font-semibold text-earth-400 border-t border-earth-100 mt-1 pt-1.5 cursor-default">
+                      {font.label}
+                    </div>
+                  );
+                }
+                return (
+                  <button
+                    key={font.value || `default-${i}`}
+                    type="button"
+                    onClick={() => {
+                      if (font.value) {
+                        editor.chain().focus().setFontFamily(font.value).run();
+                      } else {
+                        editor.chain().focus().unsetFontFamily().run();
+                      }
+                      setShowFontPicker(false);
+                    }}
+                    className="block w-full text-left px-3 py-1.5 text-sm hover:bg-earth-50 transition-colors"
+                    style={{ fontFamily: font.value || 'inherit' }}
+                  >
+                    {font.label}
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
