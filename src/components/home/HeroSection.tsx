@@ -210,9 +210,8 @@ export function HeroSection() {
                     <span
                       className="text-gamosa-600 drop-shadow-sm tracking-tight"
                       style={{ fontSize: 'clamp(1.25rem, 5vw, 3.5rem)' }}
-                    >
-                      {slide.title || 'Assam in Dallas'}
-                    </span>
+                      dangerouslySetInnerHTML={{ __html: slide.title || 'Assam in Dallas' }}
+                    />
                   </h1>
                 )}
 

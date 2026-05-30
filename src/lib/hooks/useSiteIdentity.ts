@@ -15,6 +15,8 @@ interface SiteIdentity {
   brandLogoSize: BrandSize;
   brandNameClass: string;
   brandSubtitleClass: string;
+  contactEmail: string;
+  footerDescription: string;
 }
 
 let cached: SiteIdentity | undefined;
@@ -28,6 +30,8 @@ export function useSiteIdentity(): SiteIdentity {
       brandLogoSize: DEFAULT_SITE_CONFIG.brandLogoSize ?? 'md',
       brandNameClass: nameClassMap[DEFAULT_SITE_CONFIG.brandNameSize ?? 'md'],
       brandSubtitleClass: subtitleClassMap[DEFAULT_SITE_CONFIG.brandSubtitleSize ?? 'md'],
+      contactEmail: DEFAULT_SITE_CONFIG.contactEmail,
+      footerDescription: DEFAULT_SITE_CONFIG.footerDescription ?? '',
     }
   );
 
@@ -45,6 +49,8 @@ export function useSiteIdentity(): SiteIdentity {
           brandLogoSize: logoSize,
           brandNameClass: nameClassMap[nameSize],
           brandSubtitleClass: subtitleClassMap[subtitleSize],
+          contactEmail: config.contactEmail || DEFAULT_SITE_CONFIG.contactEmail,
+          footerDescription: config.footerDescription ?? DEFAULT_SITE_CONFIG.footerDescription ?? '',
         };
         setIdentity(cached);
       })

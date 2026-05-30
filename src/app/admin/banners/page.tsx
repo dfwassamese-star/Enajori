@@ -365,7 +365,10 @@ export default function AdminBannersPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Title" value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="e.g. Assam in Dallas" />
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-earth-700 mb-1.5">Title</label>
+              <RichTextEditor content={form.title} onChange={(html) => setForm(f => ({ ...f, title: html }))} />
+            </div>
             <Select label="Language" value={form.lang} onChange={e => setForm(f => ({ ...f, lang: e.target.value as 'en' | 'as' }))} options={[{ value: 'en', label: 'English' }, { value: 'as', label: 'Assamese' }]} />
             <div className="md:col-span-2">
               <div>
