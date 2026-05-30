@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Globe, Camera, PlayCircle, Mail, MapPin, Heart } from 'lucide-react';
 import { socialLinks } from '@/lib/constants/navigation';
 import { siteConfig } from '@/lib/constants/seo';
+import { cn } from '@/lib/utils/cn';
 import { SiteLogo } from '@/components/shared/SiteLogo';
 import { useSiteIdentity } from '@/lib/hooks/useSiteIdentity';
 
@@ -26,7 +27,7 @@ const footerLinks = {
 };
 
 export function Footer() {
-  const { siteName, siteSubtitle } = useSiteIdentity();
+  const { siteName, siteSubtitle, brandLogoSize, brandNameClass, brandSubtitleClass } = useSiteIdentity();
 
   return (
     <footer className="bg-earth-800 text-earth-200">
@@ -38,12 +39,12 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <SiteLogo size="md" />
+              <SiteLogo size={brandLogoSize} />
               <div>
-                <div className="font-heading font-bold text-lg text-white leading-tight">
+                <div className={cn('font-heading font-bold text-white leading-tight', brandNameClass)}>
                   {siteName}
                 </div>
-                {siteSubtitle && <div className="text-xs text-muga-400 font-medium tracking-wider uppercase">{siteSubtitle}</div>}
+                {siteSubtitle && <div className={cn(brandSubtitleClass, 'text-muga-400 font-medium tracking-wider uppercase')}>{siteSubtitle}</div>}
               </div>
             </Link>
             <p className="text-earth-400 text-sm leading-relaxed mb-4">

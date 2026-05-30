@@ -15,6 +15,11 @@ export interface SiteConfig {
   // Site logo
   siteLogo?: string; // URL to logo image
 
+  // Branding sizes (navbar & footer)
+  brandLogoSize?: 'sm' | 'md' | 'lg' | 'xl';
+  brandNameSize?: 'sm' | 'md' | 'lg' | 'xl';
+  brandSubtitleSize?: 'sm' | 'md' | 'lg' | 'xl';
+
   // Banner settings
   bannerTransitionInterval?: number; // seconds between slides
 
@@ -90,6 +95,9 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   highlightCommunityTitle: 'Growing Community',
   highlightCommunityDescription:
     'Families from across the United States come together to celebrate our rich Assamese heritage, creating lasting bonds and passing traditions to the next generation.',
+  brandLogoSize: 'md',
+  brandNameSize: 'md',
+  brandSubtitleSize: 'md',
   homepageAnimation: 'flying_birds',
   homepageAnimationEnabled: true,
   donationsEnabled: true,

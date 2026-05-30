@@ -15,7 +15,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { siteName, siteSubtitle } = useSiteIdentity();
+  const { siteName, siteSubtitle, brandLogoSize, brandNameClass, brandSubtitleClass } = useSiteIdentity();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -38,15 +38,16 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <SiteLogo size="md" className="group-hover:opacity-90 transition-opacity" />
+            <SiteLogo size={brandLogoSize} className="group-hover:opacity-90 transition-opacity" />
             <div className="hidden sm:block">
               <div className={cn(
-                'font-heading font-bold text-lg leading-tight transition-colors',
+                'font-heading font-bold leading-tight transition-colors',
+                brandNameClass,
                 isScrolled ? 'text-earth-800' : 'text-earth-800'
               )}>
                 {siteName}
               </div>
-              {siteSubtitle && <div className="text-xs text-muga-600 font-medium tracking-wider uppercase">{siteSubtitle}</div>}
+              {siteSubtitle && <div className={cn(brandSubtitleClass, 'text-muga-600 font-medium tracking-wider uppercase')}>{siteSubtitle}</div>}
             </div>
           </Link>
 
