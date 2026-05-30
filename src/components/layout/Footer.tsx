@@ -41,8 +41,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3 mb-4">
               <SiteLogo size={brandLogoSize} />
               <div>
-                <div className={cn('font-heading font-bold text-white leading-tight', brandNameClass)}>
-                  {siteName}
+                <div className={cn('font-heading font-bold text-white leading-tight', brandNameClass)} dangerouslySetInnerHTML={{ __html: siteName }}>
                 </div>
                 {siteSubtitle && <div className={cn(brandSubtitleClass, 'text-muga-400 font-medium tracking-wider uppercase')}>{siteSubtitle}</div>}
               </div>

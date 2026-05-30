@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Spinner } from '@/components/ui/Spinner';
 import { FileUploadField } from '@/components/admin/FileUploadField';
+import { RichTextEditor } from '@/components/admin/RichTextEditor';
 import { RotateCcw } from 'lucide-react';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { toast } from 'sonner';
@@ -114,12 +115,11 @@ export default function AdminSettingsPage() {
         <Card>
           <SectionHeader title="Site Identity" section="identity" onReset={setResetSectionTarget} />
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input
-              label="Site Name"
-              value={config.siteName}
-              onChange={(e) => handleChange('siteName', e.target.value)}
-              helperText={defaults ? `Default: ${defaults.siteName}` : undefined}
-            />
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-medium text-earth-700 mb-1.5">Site Name (Navbar & Footer)</label>
+              <RichTextEditor content={config.siteName} onChange={(html) => handleChange('siteName', html)} />
+              {defaults && <p className="text-xs text-earth-400 mt-1">Default: {defaults.siteName}</p>}
+            </div>
             <Input
               label="Site Subtitle"
               value={config.siteSubtitle || ''}
