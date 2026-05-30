@@ -17,7 +17,11 @@ No test framework is configured. Playwright is a devDependency but has no test s
 
 ## Architecture
 
-**Assam in Dallas** — a community website for the Assamese diaspora in Dallas. Next.js 16.2.6 (React 19) app router with Firebase backend and Stripe donations, deployed on Vercel.
+**Enajori** — a community website for the Assamese diaspora in Dallas. Next.js 16.2.6 (React 19) app router with Firebase backend and PayPal donations, deployed on Vercel.
+
+- **GitHub:** `dfwassamese-star/Enajori`
+- **Firebase:** `enajori-d8793`
+- **Vercel:** `enajori-s-projects/enajori` (auto-deploys from GitHub `main`)
 
 ### Routing
 
@@ -41,17 +45,24 @@ src/app/(public)/events/EventsPageClient.tsx → 'use client' component with sta
 
 ### Data Layer
 
-All data lives in **Firestore**. Each domain has a service module in `src/lib/services/` that handles CRUD. Collection refs and doc helpers are in `src/lib/firebase/collections.ts`.
+All data lives in **Firestore**. Each domain has a service module in `src/lib/services/` that handles CRUD via centralized collection refs from `src/lib/firebase/collections.ts`.
 
 Key Firestore collections: `events`, `performances`, `members`, `media`, `albums`, `announcements`, `donations`, `banners`, `donationEvents`, `contactMessages`, `siteConfig`.
 
 Site-wide configuration is a single Firestore document at `siteConfig/main`, managed by `src/lib/services/siteConfig.ts`. This controls animations, quick stats, donation settings, contact form, social links, about page content, and more.
 
+### Service Layer Pattern
+
+All service files in `src/lib/services/` follow a consistent pattern:
+- Use centralized collection refs (`getEventsRef()`, `eventDoc(id)`, etc.) from `src/lib/firebase/collections.ts` — no local `getCol()` functions.
+- Use shared helpers from `src/lib/utils/firestore.ts`: `createTimestamp()` for Firestore-safe timestamps, `stripUndefined()` / `stripUndefinedDeep()` for cleaning objects before Firestore writes.
+- Types are defined in `src/types/` and imported from the barrel `@/types`.
+
 ### Firebase SDK: Client vs Admin
 
 - **Client SDK** (`src/lib/firebase/client.ts`): Lazy-initialized via `getFirebaseAuth()`, `getFirebaseDb()`, `getFirebaseStorage()`. Used by all service modules in `src/lib/services/` and client components.
 - **Admin SDK** (`src/lib/firebase/admin.ts`): Uses service account credentials from env vars. Provides `getAdminAuth()`, `getAdminDb()`, `getAdminStorage()`. Used in server-only contexts: `sitemap.ts`, `generateMetadata()` functions, API routes (`/api/stripe/webhook`).
-- **Collections** (`src/lib/firebase/collections.ts`): Central collection ref and doc helper exports (e.g., `getEventsRef()`, `eventDoc(id)`). These use the client SDK.
+- **Collections** (`src/lib/firebase/collections.ts`): Central collection ref and doc helper exports (e.g., `getEventsRef()`, `eventDoc(id)`, `getDonationEventsRef()`, `contactMessageDoc(id)`). These use the client SDK.
 
 ### Authentication
 
@@ -59,7 +70,7 @@ Firebase Auth with email/password. Admin access requires a Firebase custom claim
 
 ### Storage
 
-Firebase Storage for all uploaded images/videos. `next.config.ts` allows remote images from `firebasestorage.googleapis.com`.
+Firebase Storage for all uploaded images/videos. `next.config.ts` allows remote images from `firebasestorage.googleapis.com` and `*.firebasestorage.app`.
 
 ### SEO
 
@@ -87,7 +98,7 @@ Uses the new `@theme inline` directive in `src/app/globals.css` — not a `tailw
 
 ### Types
 
-Shared types in `src/types/` exported via barrel `index.ts`. `WithId<T>` wraps Firestore documents with their `id`. All types are defined per domain (event.ts, member.ts, media.ts, etc.).
+Shared types in `src/types/` exported via barrel `index.ts`. `WithId<T>` wraps Firestore documents with their `id`. All types are defined per domain (event.ts, member.ts, media.ts, donation.ts, donationEvent.ts, contactMessage.ts, etc.).
 
 ### Constants
 
@@ -97,6 +108,7 @@ Shared types in `src/types/` exported via barrel `index.ts`. `WithId<T>` wraps F
 ### Utilities
 
 - `src/lib/utils/cn.ts` — tailwind-merge class name helper
+- `src/lib/utils/firestore.ts` — Firestore helpers: `createTimestamp()`, `stripUndefined()`, `stripUndefinedDeep()`
 - `src/lib/utils/validation.ts` — Zod schemas for contact, donation, event forms
 - `src/lib/utils/dates.ts` — Date formatting
 - `src/lib/utils/slugify.ts` — URL slug generation
@@ -108,7 +120,8 @@ See `.env.example`. Requires Firebase client keys (`NEXT_PUBLIC_FIREBASE_*`), Fi
 
 ## External Services
 
-- **Firebase**: Auth, Firestore, Storage
-- **Stripe**: Donation checkout sessions and webhooks (`src/lib/stripe/server.ts` — lazy singleton). `/api/stripe/checkout` creates sessions; `/api/stripe/webhook` handles `checkout.session.completed` and stores donations in Firestore.
+- **Firebase**: Auth, Firestore, Storage (project: `enajori-d8793`)
+- **PayPal**: Primary donation method. Redirects donors to PayPal's hosted page using the configured PayPal business email from `siteConfig`. No payment data handled by the site.
+- **Stripe**: Payment infrastructure (API routes and webhook available for checkout integration).
 - **Resend**: Transactional email for contact form. Falls back to Firestore-only storage if no API key — `/api/contact` still returns success.
 - **Vercel**: Hosting, OG image generation (`@vercel/og`), on-demand ISR via `/api/revalidate` (POST with secret + path).
