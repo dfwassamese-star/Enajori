@@ -5,6 +5,7 @@ import { getSiteConfig, updateSiteConfig, getStoredDefaults, ensureDefaultsStore
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { Select } from '@/components/ui/Select';
 import { Spinner } from '@/components/ui/Spinner';
 import { FileUploadField } from '@/components/admin/FileUploadField';
 import { RotateCcw } from 'lucide-react';
@@ -14,7 +15,7 @@ import { toast } from 'sonner';
 type SectionKey = 'identity' | 'social';
 
 const sectionFields: Record<SectionKey, (keyof SiteConfig)[]> = {
-  identity: ['siteName', 'siteSubtitle', 'siteTagline', 'contactEmail', 'contactPhone', 'siteLogo'],
+  identity: ['siteName', 'siteSubtitle', 'siteTagline', 'contactEmail', 'contactPhone', 'siteLogo', 'brandLogoSize', 'brandNameSize', 'brandSubtitleSize'],
   social: ['facebookUrl', 'instagramUrl', 'youtubeUrl'],
 };
 
@@ -152,6 +153,39 @@ export default function AdminSettingsPage() {
                 helperText="Logo image shown in the navbar, footer, and admin sidebar. Default: circular 'A' icon. Remove the image to revert to default."
               />
             </div>
+            <Select
+              label="Logo Size"
+              value={config.brandLogoSize || 'md'}
+              onChange={(e) => handleChange('brandLogoSize', e.target.value)}
+              options={[
+                { value: 'sm', label: 'Small' },
+                { value: 'md', label: 'Medium' },
+                { value: 'lg', label: 'Large' },
+                { value: 'xl', label: 'Extra Large' },
+              ]}
+            />
+            <Select
+              label="Name Size"
+              value={config.brandNameSize || 'md'}
+              onChange={(e) => handleChange('brandNameSize', e.target.value)}
+              options={[
+                { value: 'sm', label: 'Small' },
+                { value: 'md', label: 'Medium' },
+                { value: 'lg', label: 'Large' },
+                { value: 'xl', label: 'Extra Large' },
+              ]}
+            />
+            <Select
+              label="Subtitle Size"
+              value={config.brandSubtitleSize || 'md'}
+              onChange={(e) => handleChange('brandSubtitleSize', e.target.value)}
+              options={[
+                { value: 'sm', label: 'Small' },
+                { value: 'md', label: 'Medium' },
+                { value: 'lg', label: 'Large' },
+                { value: 'xl', label: 'Extra Large' },
+              ]}
+            />
           </div>
         </Card>
 
