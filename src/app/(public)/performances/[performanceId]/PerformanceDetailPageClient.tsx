@@ -11,7 +11,7 @@ import { PhotoLightbox } from '@/components/gallery/PhotoLightbox';
 import { FilterBar } from '@/components/shared/FilterBar';
 import { getPerformanceById } from '@/lib/services/performances';
 import { getEventById } from '@/lib/services/events';
-import { toYouTubeEmbedUrl } from '@/lib/utils/video';
+import { toEmbedUrl } from '@/lib/utils/video';
 import type { Performance, WithId } from '@/types';
 
 export default function PerformanceDetailPage() {
@@ -144,7 +144,7 @@ export default function PerformanceDetailPage() {
             <div className="mb-6">
               <div className="aspect-video rounded-xl overflow-hidden">
                 <iframe
-                  src={toYouTubeEmbedUrl(performance.videoUrl)}
+                  src={toEmbedUrl(performance.videoUrl)}
                   className="w-full h-full"
                   allowFullScreen
                   title={performance.title}
@@ -158,8 +158,8 @@ export default function PerformanceDetailPage() {
               <div className="grid sm:grid-cols-2 gap-4">
                 {performance.videos.map((url, i) => (
                   <div key={i} className="aspect-video rounded-lg overflow-hidden bg-earth-900">
-                    {url.includes('youtube.com') || url.includes('youtu.be') ? (
-                      <iframe src={toYouTubeEmbedUrl(url)} className="w-full h-full" allowFullScreen />
+                    {url.includes('youtube.com') || url.includes('youtu.be') || url.includes('vimeo.com') ? (
+                      <iframe src={toEmbedUrl(url)} className="w-full h-full" allowFullScreen title={`Video ${i + 1}`} />
                     ) : (
                       <video src={url} controls className="w-full h-full" />
                     )}

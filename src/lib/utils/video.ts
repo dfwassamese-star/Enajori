@@ -4,9 +4,24 @@ export function getYouTubeId(url: string): string | null {
   return match ? match[1] : null;
 }
 
-/** Convert a YouTube watch/share URL to an embeddable URL */
-export function toYouTubeEmbedUrl(url: string): string {
-  const id = getYouTubeId(url);
-  if (id) return `https://www.youtube.com/embed/${id}`;
+/** Extract Vimeo video ID */
+export function getVimeoId(url: string): string | null {
+  const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  return match ? match[1] : null;
+}
+
+/** Convert a YouTube/Vimeo URL to an embeddable URL */
+export function toEmbedUrl(url: string): string {
+  const ytId = getYouTubeId(url);
+  if (ytId) return `https://www.youtube.com/embed/${ytId}`;
+
+  const vimeoId = getVimeoId(url);
+  if (vimeoId) return `https://player.vimeo.com/video/${vimeoId}`;
+
   return url;
 }
+
+/**
+ * @deprecated Use toEmbedUrl instead — handles both YouTube and Vimeo
+ */
+export const toYouTubeEmbedUrl = toEmbedUrl;
