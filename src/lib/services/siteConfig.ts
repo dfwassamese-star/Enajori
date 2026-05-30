@@ -7,6 +7,7 @@ import { COLLECTIONS } from '@/lib/firebase/collections';
 export interface SiteConfig {
   // Site identity
   siteName: string;
+  siteSubtitle?: string;
   siteTagline: string;
   contactEmail: string;
   contactPhone?: string;
@@ -75,7 +76,8 @@ export interface SiteConfig {
 }
 
 export const DEFAULT_SITE_CONFIG: SiteConfig = {
-  siteName: 'Assam in Dallas, USA',
+  siteName: 'Assam in Dallas',
+  siteSubtitle: 'USA',
   siteTagline: 'Connecting cultures, celebrating heritage, and building community.',
   contactEmail: 'info@assameseassociationofdallas.org',
   statMembers: 500,

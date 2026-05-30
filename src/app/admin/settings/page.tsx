@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 type SectionKey = 'identity' | 'social';
 
 const sectionFields: Record<SectionKey, (keyof SiteConfig)[]> = {
-  identity: ['siteName', 'siteTagline', 'contactEmail', 'contactPhone', 'siteLogo'],
+  identity: ['siteName', 'siteSubtitle', 'siteTagline', 'contactEmail', 'contactPhone', 'siteLogo'],
   social: ['facebookUrl', 'instagramUrl', 'youtubeUrl'],
 };
 
@@ -118,6 +118,12 @@ export default function AdminSettingsPage() {
               value={config.siteName}
               onChange={(e) => handleChange('siteName', e.target.value)}
               helperText={defaults ? `Default: ${defaults.siteName}` : undefined}
+            />
+            <Input
+              label="Site Subtitle"
+              value={config.siteSubtitle || ''}
+              onChange={(e) => handleChange('siteSubtitle', e.target.value)}
+              helperText="Shown below the site name in navbar and footer (e.g. USA)"
             />
             <Input
               label="Tagline"

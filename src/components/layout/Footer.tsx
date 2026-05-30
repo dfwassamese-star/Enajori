@@ -1,8 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import { Globe, Camera, PlayCircle, Mail, MapPin, Heart } from 'lucide-react';
 import { socialLinks } from '@/lib/constants/navigation';
 import { siteConfig } from '@/lib/constants/seo';
 import { SiteLogo } from '@/components/shared/SiteLogo';
+import { useSiteIdentity } from '@/lib/hooks/useSiteIdentity';
 
 const footerLinks = {
   explore: [
@@ -23,6 +26,8 @@ const footerLinks = {
 };
 
 export function Footer() {
+  const { siteName, siteSubtitle } = useSiteIdentity();
+
   return (
     <footer className="bg-earth-800 text-earth-200">
       {/* Gamosa Border Top */}
@@ -36,9 +41,9 @@ export function Footer() {
               <SiteLogo size="md" />
               <div>
                 <div className="font-heading font-bold text-lg text-white leading-tight">
-                  Assam in Dallas
+                  {siteName}
                 </div>
-                <div className="text-xs text-muga-400 font-medium tracking-wider uppercase">USA</div>
+                {siteSubtitle && <div className="text-xs text-muga-400 font-medium tracking-wider uppercase">{siteSubtitle}</div>}
               </div>
             </Link>
             <p className="text-earth-400 text-sm leading-relaxed mb-4">
