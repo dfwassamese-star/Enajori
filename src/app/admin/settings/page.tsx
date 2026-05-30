@@ -162,6 +162,8 @@ export default function AdminSettingsPage() {
                 { value: 'md', label: 'Medium' },
                 { value: 'lg', label: 'Large' },
                 { value: 'xl', label: 'Extra Large' },
+                { value: 'xxxl', label: 'XXX Large' },
+                { value: 'xxxxl', label: 'XXXX Large' },
               ]}
             />
             <Select
@@ -173,6 +175,8 @@ export default function AdminSettingsPage() {
                 { value: 'md', label: 'Medium' },
                 { value: 'lg', label: 'Large' },
                 { value: 'xl', label: 'Extra Large' },
+                { value: 'xxxl', label: 'XXX Large' },
+                { value: 'xxxxl', label: 'XXXX Large' },
               ]}
             />
             <Select
@@ -184,6 +188,8 @@ export default function AdminSettingsPage() {
                 { value: 'md', label: 'Medium' },
                 { value: 'lg', label: 'Large' },
                 { value: 'xl', label: 'Extra Large' },
+                { value: 'xxxl', label: 'XXX Large' },
+                { value: 'xxxxl', label: 'XXXX Large' },
               ]}
             />
           </div>

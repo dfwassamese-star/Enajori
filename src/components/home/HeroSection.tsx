@@ -213,12 +213,6 @@ export function HeroSection() {
                     >
                       {slide.title || 'Assam in Dallas'}
                     </span>
-                    <span
-                      className="text-muga-500 font-bold italic ml-1 sm:ml-2"
-                      style={{ fontSize: 'clamp(0.85rem, 3vw, 2.2rem)' }}
-                    >
-                      USA
-                    </span>
                   </h1>
                 )}
 
