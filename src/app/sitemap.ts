@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAdminDb } from '@/lib/firebase/admin';
 
-const baseUrl = 'https://assamindallas.org';
+const baseUrl = 'https://enajoridallas.org';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [

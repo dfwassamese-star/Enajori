@@ -292,7 +292,7 @@ All credentials are stored as **environment variables** — never in source code
 
 2. Add each variable from the list above, one by one.
 
-3. For **`NEXT_PUBLIC_BASE_URL`**, set it to your production URL (e.g., `https://enajori.vercel.app` or your custom domain).
+3. For **`NEXT_PUBLIC_BASE_URL`**, set it to your production URL (e.g., `https://enajoridallas.org` or your custom domain).
 
 4. For **`FIREBASE_ADMIN_PRIVATE_KEY`**, paste the entire private key string from the service account JSON file, including the BEGIN and END markers.
 
@@ -580,7 +580,7 @@ npm run start        # Start the production build locally (run after `npm run bu
 | `STRIPE_SECRET_KEY` | Optional | `.env.local` + Vercel | Stripe secret key (starts with `sk_`). Server-side only. Found in same location. |
 | `STRIPE_WEBHOOK_SECRET` | Optional | `.env.local` + Vercel | Stripe webhook signing secret (starts with `whsec_`). Generated when creating a webhook endpoint in Stripe Dashboard. |
 | `RESEND_API_KEY` | Optional | `.env.local` + Vercel **or** Admin Portal | Resend API key for sending contact form emails. Can also be configured in admin portal under Email Configuration. If not set, contact messages are saved to Firestore only. |
-| `NEXT_PUBLIC_BASE_URL` | Yes | `.env.local` + Vercel | The website's base URL. Set to `http://localhost:3000` locally or your production URL (e.g., `https://enajori.vercel.app`) on Vercel. |
+| `NEXT_PUBLIC_BASE_URL` | Yes | `.env.local` + Vercel | The website's base URL. Set to `http://localhost:3000` locally or your production URL (e.g., `https://enajoridallas.org`) on Vercel. |
 | `REVALIDATION_SECRET` | Yes | `.env.local` + Vercel | A random secret string used to authenticate on-demand ISR (Incremental Static Regeneration) revalidation requests. Generate any random string. |
 
 > **Variables prefixed with `NEXT_PUBLIC_`** are exposed to the browser. All other variables are server-side only and never sent to the client.
