@@ -284,7 +284,7 @@ export function HeroSection() {
                     className="shadow-md"
                     style={{ fontSize: 'clamp(0.7rem, 1.3vw, 0.875rem)' }}
                   >
-                    Upcoming Events
+                    View Events
                   </Button>
                 </Link>
                 <Link href="/performances">
@@ -343,7 +343,7 @@ export function HeroSection() {
         <div className="flex items-center justify-center gap-3">
           <Link href="/events">
             <Button size="md" leftIcon={<Calendar className="h-4 w-4" />} className="shadow-md text-sm">
-              Upcoming Events
+              View Events
             </Button>
           </Link>
           <Link href="/performances">
