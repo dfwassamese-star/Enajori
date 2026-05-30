@@ -2,12 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Film } from 'lucide-react';
-import { getYouTubeId } from '@/lib/utils/video';
-
-function getVimeoId(url: string): string | null {
-  const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
-  return match ? match[1] : null;
-}
+import { getYouTubeId, getVimeoId } from '@/lib/utils/video';
 
 interface VideoThumbnailProps {
   url: string;
