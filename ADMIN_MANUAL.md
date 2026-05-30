@@ -67,12 +67,12 @@ A complete guide for administrators to install, configure, deploy, and maintain 
 
 2. Clone the repository:
    ```bash
-   git clone https://github.com/birbalin25/assamwebsite.git
+   git clone https://github.com/dfwassamese-star/Enajori.git
    ```
 
 3. Navigate into the project:
    ```bash
-   cd assamwebsite
+   cd Enajori
    ```
 
 4. Install dependencies:
@@ -98,7 +98,7 @@ Vercel hosts the website and automatically builds/deploys when code is pushed to
 
 3. After signing up, click **Add New Project**.
 
-4. Select the **assamwebsite** repository from the list.
+4. Select the **Enajori** repository from the list.
 
 5. Vercel will auto-detect that it is a Next.js project. Accept the default settings:
    - **Framework Preset:** Next.js
@@ -122,7 +122,7 @@ Firebase provides authentication, database (Firestore), and file storage for the
 
 2. Click **Create a project** (or **Add project**).
 
-3. Enter a project name, e.g., `assam-in-dallas`.
+3. Enter a project name, e.g., `enajori`.
 
 4. Disable Google Analytics (optional, not used by the website) and click **Create project**.
 
@@ -227,9 +227,9 @@ curl -X POST \
 
    ```
    apiKey: "AIza..."
-   authDomain: "assam-in-dallas.firebaseapp.com"
-   projectId: "assam-in-dallas"
-   storageBucket: "assam-in-dallas.firebasestorage.app"
+   authDomain: "enajori-d8793.firebaseapp.com"
+   projectId: "enajori-d8793"
+   storageBucket: "enajori-d8793.firebasestorage.app"
    messagingSenderId: "123456789"
    appId: "1:123456789:web:abc123"
    ```
@@ -263,15 +263,15 @@ All credentials are stored as **environment variables** — never in source code
    ```env
    # Firebase Client (from Step 2c.6)
    NEXT_PUBLIC_FIREBASE_API_KEY=AIza...
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=assam-in-dallas.firebaseapp.com
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=assam-in-dallas
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=assam-in-dallas.firebasestorage.app
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=enajori-d8793.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=enajori-d8793
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=enajori-d8793.firebasestorage.app
    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
    NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abc123
 
    # Firebase Admin (from Step 2c.7)
-   FIREBASE_ADMIN_PROJECT_ID=assam-in-dallas
-   FIREBASE_ADMIN_CLIENT_EMAIL=firebase-adminsdk-xxxxx@assam-in-dallas.iam.gserviceaccount.com
+   FIREBASE_ADMIN_PROJECT_ID=enajori-d8793
+   FIREBASE_ADMIN_CLIENT_EMAIL=firebase-adminsdk-fbsvc@enajori-d8793.iam.gserviceaccount.com
    FIREBASE_ADMIN_PRIVATE_KEY="<paste-your-full-private-key-here>"
 
    # Stripe (optional — only if using Stripe checkout instead of PayPal)
@@ -292,7 +292,7 @@ All credentials are stored as **environment variables** — never in source code
 
 2. Add each variable from the list above, one by one.
 
-3. For **`NEXT_PUBLIC_BASE_URL`**, set it to your production URL (e.g., `https://assam-in-dallas.vercel.app` or your custom domain).
+3. For **`NEXT_PUBLIC_BASE_URL`**, set it to your production URL (e.g., `https://enajori.vercel.app` or your custom domain).
 
 4. For **`FIREBASE_ADMIN_PRIVATE_KEY`**, paste the entire private key string from the service account JSON file, including the BEGIN and END markers.
 
@@ -523,8 +523,8 @@ vercel --prod
 
 1. Clone and install (if not already done):
    ```bash
-   git clone https://github.com/birbalin25/assamwebsite.git
-   cd assamwebsite
+   git clone https://github.com/dfwassamese-star/Enajori.git
+   cd Enajori
    npm install
    ```
 
@@ -549,7 +549,7 @@ vercel --prod
 The local development environment connects to the **same** Firebase project as production. All changes you make via the admin portal locally will affect the same Firestore database.
 
 If you want a separate development database:
-1. Create a second Firebase project (e.g., `assam-in-dallas-dev`).
+1. Create a second Firebase project (e.g., `enajori-dev`).
 2. Use that project's credentials in your `.env.local`.
 
 #### Useful Commands
@@ -580,7 +580,7 @@ npm run start        # Start the production build locally (run after `npm run bu
 | `STRIPE_SECRET_KEY` | Optional | `.env.local` + Vercel | Stripe secret key (starts with `sk_`). Server-side only. Found in same location. |
 | `STRIPE_WEBHOOK_SECRET` | Optional | `.env.local` + Vercel | Stripe webhook signing secret (starts with `whsec_`). Generated when creating a webhook endpoint in Stripe Dashboard. |
 | `RESEND_API_KEY` | Optional | `.env.local` + Vercel **or** Admin Portal | Resend API key for sending contact form emails. Can also be configured in admin portal under Email Configuration. If not set, contact messages are saved to Firestore only. |
-| `NEXT_PUBLIC_BASE_URL` | Yes | `.env.local` + Vercel | The website's base URL. Set to `http://localhost:3000` locally or your production URL (e.g., `https://assam-in-dallas.vercel.app`) on Vercel. |
+| `NEXT_PUBLIC_BASE_URL` | Yes | `.env.local` + Vercel | The website's base URL. Set to `http://localhost:3000` locally or your production URL (e.g., `https://enajori.vercel.app`) on Vercel. |
 | `REVALIDATION_SECRET` | Yes | `.env.local` + Vercel | A random secret string used to authenticate on-demand ISR (Incremental Static Regeneration) revalidation requests. Generate any random string. |
 
 > **Variables prefixed with `NEXT_PUBLIC_`** are exposed to the browser. All other variables are server-side only and never sent to the client.
@@ -672,7 +672,7 @@ When you rotate a key (Firebase, Resend, Stripe, etc.):
 ```bash
 # Export all Firestore data to a Cloud Storage bucket
 gcloud firestore export gs://your-backup-bucket/backups/$(date +%Y-%m-%d) \
-  --project=assam-in-dallas
+  --project=enajori-d8793
 ```
 
 You can automate this with a cron job or Cloud Scheduler.
@@ -681,7 +681,7 @@ You can automate this with a cron job or Cloud Scheduler.
 
 Firebase Storage files can be synced to a local directory:
 ```bash
-gsutil -m rsync -r gs://assam-in-dallas.firebasestorage.app ./storage-backup
+gsutil -m rsync -r gs://enajori-d8793.firebasestorage.app ./storage-backup
 ```
 
 ### Adding a New Admin User
@@ -873,7 +873,7 @@ npx tsc --noEmit               # Check for TypeScript errors without building
 ### Folder Structure Overview
 
 ```
-assamwebsite/
+Enajori/
 ├── src/
 │   ├── app/                        # Next.js App Router
 │   │   ├── (public)/               # Public-facing pages

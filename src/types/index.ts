@@ -6,4 +6,6 @@ export * from './media';
 export * from './album';
 export * from './announcement';
 export * from './donation';
+export * from './donationEvent';
 export * from './banner';
+export * from './contactMessage';

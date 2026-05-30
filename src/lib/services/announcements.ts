@@ -1,24 +1,12 @@
 import {
-  collection, query, where, getDocs, getDoc, doc, addDoc, updateDoc, deleteDoc, limit
+  query, where, getDocs, getDoc, addDoc, updateDoc, deleteDoc, limit
 } from 'firebase/firestore';
-import { getFirebaseDb } from '@/lib/firebase/client';
-import { COLLECTIONS } from '@/lib/firebase/collections';
+import { getAnnouncementsRef, announcementDoc } from '@/lib/firebase/collections';
+import { createTimestamp, stripUndefined } from '@/lib/utils/firestore';
 import type { Announcement, WithId } from '@/types';
 
-function stripUndefined<T extends Record<string, unknown>>(obj: T): T {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([, v]) => v !== undefined)
-  ) as T;
-}
-
-function getCol() {
-  const db = getFirebaseDb();
-  if (!db) throw new Error('Firebase not initialized');
-  return collection(db, COLLECTIONS.ANNOUNCEMENTS);
-}
-
 export async function getPublishedAnnouncements(count?: number): Promise<WithId<Announcement>[]> {
-  const q = query(getCol(), where('isPublished', '==', true));
+  const q = query(getAnnouncementsRef(), where('isPublished', '==', true));
   const snap = await getDocs(q);
   let items = snap.docs.map(d => ({ id: d.id, ...d.data() } as WithId<Announcement>));
   // Sort: pinned first, then by publishDate desc
@@ -32,37 +20,37 @@ export async function getPublishedAnnouncements(count?: number): Promise<WithId<
 }
 
 export async function getAnnouncementById(id: string): Promise<WithId<Announcement> | null> {
-  const snap = await getDoc(doc(getFirebaseDb()!, COLLECTIONS.ANNOUNCEMENTS, id));
+  const snap = await getDoc(announcementDoc(id));
   if (!snap.exists()) return null;
   return { id: snap.id, ...snap.data() } as WithId<Announcement>;
 }
 
 export async function getAnnouncementBySlug(slug: string): Promise<WithId<Announcement> | null> {
-  const q = query(getCol(), where('slug', '==', slug), limit(1));
+  const q = query(getAnnouncementsRef(), where('slug', '==', slug), limit(1));
   const snap = await getDocs(q);
   if (snap.empty) return null;
   return { id: snap.docs[0].id, ...snap.docs[0].data() } as WithId<Announcement>;
 }
 
 export async function createAnnouncement(data: Omit<Announcement, 'createdAt' | 'updatedAt'>): Promise<string> {
-  const now = { seconds: Math.floor(Date.now() / 1000), nanoseconds: 0 };
+  const now = createTimestamp();
   const cleaned = stripUndefined({ ...data, createdAt: now, updatedAt: now });
-  const ref = await addDoc(getCol(), cleaned);
+  const ref = await addDoc(getAnnouncementsRef(), cleaned);
   return ref.id;
 }
 
 export async function updateAnnouncement(id: string, data: Partial<Announcement>): Promise<void> {
-  const now = { seconds: Math.floor(Date.now() / 1000), nanoseconds: 0 };
+  const now = createTimestamp();
   const cleaned = stripUndefined({ ...data, updatedAt: now });
-  await updateDoc(doc(getFirebaseDb()!, COLLECTIONS.ANNOUNCEMENTS, id), cleaned);
+  await updateDoc(announcementDoc(id), cleaned);
 }
 
 export async function deleteAnnouncement(id: string): Promise<void> {
-  await deleteDoc(doc(getFirebaseDb()!, COLLECTIONS.ANNOUNCEMENTS, id));
+  await deleteDoc(announcementDoc(id));
 }
 
 export async function getAllAnnouncements(): Promise<WithId<Announcement>[]> {
-  const snap = await getDocs(getCol());
+  const snap = await getDocs(getAnnouncementsRef());
   const items = snap.docs.map(d => ({ id: d.id, ...d.data() } as WithId<Announcement>));
   return items.sort((a, b) => (b.publishDate?.seconds ?? 0) - (a.publishDate?.seconds ?? 0));
 }
@@ -118,7 +106,7 @@ const DUMMY_NEWS: Omit<Announcement, 'createdAt' | 'updatedAt'>[] = [
  * Seeds dummy news articles into Firestore if none exist.
  */
 export async function ensureDefaultAnnouncements(): Promise<void> {
-  const snap = await getDocs(getCol());
+  const snap = await getDocs(getAnnouncementsRef());
   if (snap.size > 0) return;
   for (const news of DUMMY_NEWS) {
     await createAnnouncement(news);

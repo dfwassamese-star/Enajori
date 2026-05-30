@@ -1,15 +1,7 @@
 {
   "projects": {
-    "default": "assam-in-dallas"
+    "default": "enajori-d8793"
   },
-  "targets": {
-    "assam-in-dallas": {
-      "storage": {
-        "default": [
-          "assam-in-dallas.firebasestorage.app"
-        ]
-      }
-    }
-  },
+  "targets": {},
   "etags": {}
 }

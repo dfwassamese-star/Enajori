@@ -23,6 +23,8 @@ export const getAlbumsRef = () => collection(getFirebaseDb()!, COLLECTIONS.ALBUM
 export const getAnnouncementsRef = () => collection(getFirebaseDb()!, COLLECTIONS.ANNOUNCEMENTS);
 export const getDonationsRef = () => collection(getFirebaseDb()!, COLLECTIONS.DONATIONS);
 export const getBannersRef = () => collection(getFirebaseDb()!, COLLECTIONS.BANNERS);
+export const getDonationEventsRef = () => collection(getFirebaseDb()!, COLLECTIONS.DONATION_EVENTS);
+export const getContactMessagesRef = () => collection(getFirebaseDb()!, COLLECTIONS.CONTACT_MESSAGES);
 
 export const eventDoc = (id: string) => doc(getFirebaseDb()!, COLLECTIONS.EVENTS, id);
 export const performanceDoc = (id: string) => doc(getFirebaseDb()!, COLLECTIONS.PERFORMANCES, id);
@@ -32,4 +34,6 @@ export const albumDoc = (id: string) => doc(getFirebaseDb()!, COLLECTIONS.ALBUMS
 export const announcementDoc = (id: string) => doc(getFirebaseDb()!, COLLECTIONS.ANNOUNCEMENTS, id);
 export const donationDoc = (id: string) => doc(getFirebaseDb()!, COLLECTIONS.DONATIONS, id);
 export const bannerDoc = (id: string) => doc(getFirebaseDb()!, COLLECTIONS.BANNERS, id);
+export const donationEventDoc = (id: string) => doc(getFirebaseDb()!, COLLECTIONS.DONATION_EVENTS, id);
+export const contactMessageDoc = (id: string) => doc(getFirebaseDb()!, COLLECTIONS.CONTACT_MESSAGES, id);
 export const getSiteConfigDoc = () => doc(getFirebaseDb()!, COLLECTIONS.SITE_CONFIG, 'main');

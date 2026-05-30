@@ -1,29 +1,9 @@
 import {
-  collection, query, where, getDocs, getDoc, doc, addDoc, updateDoc, deleteDoc
+  query, where, getDocs, getDoc, addDoc, updateDoc, deleteDoc
 } from 'firebase/firestore';
-import { getFirebaseDb } from '@/lib/firebase/client';
-import { COLLECTIONS } from '@/lib/firebase/collections';
+import { getBannersRef, bannerDoc } from '@/lib/firebase/collections';
+import { createTimestamp, stripUndefinedDeep } from '@/lib/utils/firestore';
 import type { Banner, WithId } from '@/types';
-
-function stripUndefined<T extends Record<string, unknown>>(obj: T): T {
-  const result: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(obj)) {
-    if (value === undefined) continue;
-    if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-      const nested = stripUndefined(value as Record<string, unknown>);
-      if (Object.keys(nested).length > 0) result[key] = nested;
-    } else {
-      result[key] = value;
-    }
-  }
-  return result as T;
-}
-
-function getCol() {
-  const db = getFirebaseDb();
-  if (!db) throw new Error('Firebase not initialized');
-  return collection(db, COLLECTIONS.BANNERS);
-}
 
 export const DEFAULT_BANNERS: Omit<Banner, 'createdAt' | 'updatedAt'>[] = [
   {
@@ -45,46 +25,46 @@ export const DEFAULT_BANNERS: Omit<Banner, 'createdAt' | 'updatedAt'>[] = [
 ];
 
 export async function getActiveBanners(): Promise<WithId<Banner>[]> {
-  const q = query(getCol(), where('isActive', '==', true));
+  const q = query(getBannersRef(), where('isActive', '==', true));
   const snap = await getDocs(q);
   const banners = snap.docs.map(d => ({ id: d.id, ...d.data() } as WithId<Banner>));
   return banners.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 
 export async function getAllBanners(): Promise<WithId<Banner>[]> {
-  const snap = await getDocs(getCol());
+  const snap = await getDocs(getBannersRef());
   const banners = snap.docs.map(d => ({ id: d.id, ...d.data() } as WithId<Banner>));
   return banners.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 
 export async function getBannerById(id: string): Promise<WithId<Banner> | null> {
-  const snap = await getDoc(doc(getFirebaseDb()!, COLLECTIONS.BANNERS, id));
+  const snap = await getDoc(bannerDoc(id));
   if (!snap.exists()) return null;
   return { id: snap.id, ...snap.data() } as WithId<Banner>;
 }
 
 export async function createBanner(data: Omit<Banner, 'createdAt' | 'updatedAt'>): Promise<string> {
-  const now = { seconds: Math.floor(Date.now() / 1000), nanoseconds: 0 };
-  const cleaned = stripUndefined({ ...data, createdAt: now, updatedAt: now });
-  const ref = await addDoc(getCol(), cleaned);
+  const now = createTimestamp();
+  const cleaned = stripUndefinedDeep({ ...data, createdAt: now, updatedAt: now });
+  const ref = await addDoc(getBannersRef(), cleaned);
   return ref.id;
 }
 
 export async function updateBanner(id: string, data: Partial<Banner>): Promise<void> {
-  const now = { seconds: Math.floor(Date.now() / 1000), nanoseconds: 0 };
-  const cleaned = stripUndefined({ ...data, updatedAt: now });
-  await updateDoc(doc(getFirebaseDb()!, COLLECTIONS.BANNERS, id), cleaned);
+  const now = createTimestamp();
+  const cleaned = stripUndefinedDeep({ ...data, updatedAt: now });
+  await updateDoc(bannerDoc(id), cleaned);
 }
 
 export async function deleteBanner(id: string): Promise<void> {
-  await deleteDoc(doc(getFirebaseDb()!, COLLECTIONS.BANNERS, id));
+  await deleteDoc(bannerDoc(id));
 }
 
 /**
  * Seeds default banners into Firestore if none exist.
  */
 export async function ensureDefaultBanners(): Promise<void> {
-  const snap = await getDocs(getCol());
+  const snap = await getDocs(getBannersRef());
   if (snap.size > 0) return;
   for (const banner of DEFAULT_BANNERS) {
     await createBanner(banner);
